@@ -45,3 +45,9 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("B2","42")
         self.assertEqual(42,spreadsheet.evaluate("A1"))
 
+    def test_simple_formulas_with_references_error(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1","=B2")
+        spreadsheet.set("B2","42.5")
+        self.assertEqual("#Error",spreadsheet.evaluate("A1"))
+
