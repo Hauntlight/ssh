@@ -12,22 +12,29 @@ class SpreadSheet:
         return self._cells.get(cell, '')
 
     def evaluate(self, cell: str) -> int | str:
+        if cell in self._evaluating:
+            return "#Error"
+        self._evaluating.add(cell)
         value = self.get(cell)
         if value.isdigit():
-            return int(value)
+            result = int(value)
         elif value.startswith("'") and value.endswith("'"):
-            return value[1:-1]
+            result = value[1:-1]
         elif value.startswith("="):
             if value[1:].isdigit():
-                return int(value[1:])
+                result = int(value[1:])
             elif value.startswith("='") and value.endswith("'"):
-                return value[2:-1]
+                result = value[2:-1]
+            elif value[1:] in self._cells:
+                result = self.evaluate(value[1:])
             else:
-                return "#Error"
+                result = "#Error"
         else:
             try:
                 float(value)  # Check if it can be a valid float
-                return "#Error"
+                result = "#Error"
             except ValueError:
-                return "#Error"
+                result = "#Error"
+        self._evaluating.remove(cell)
+        return result
 

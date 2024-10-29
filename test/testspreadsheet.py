@@ -38,3 +38,10 @@ class TestSpreadSheet(TestCase):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1","='Apple")
         self.assertEqual("#Error",spreadsheet.evaluate("A1"))
+
+    def test_simple_formulas_with_references(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1","=B2")
+        spreadsheet.set("B2","42")
+        self.assertEqual(42,spreadsheet.evaluate("A1"))
+
