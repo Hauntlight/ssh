@@ -13,7 +13,7 @@ class SpreadSheet:
 
     def evaluate(self, cell: str) -> int | str:
         if cell in self._evaluating:
-            return "#Error"
+            return "#Circular"
         self._evaluating.add(cell)
         value = self.get(cell)
         if value.isdigit():

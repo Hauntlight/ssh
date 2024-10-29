@@ -48,6 +48,6 @@ class TestSpreadSheet(TestCase):
     def test_simple_formulas_with_references_error(self):
         spreadsheet = SpreadSheet()
         spreadsheet.set("A1","=B2")
-        spreadsheet.set("B2","42.5")
-        self.assertEqual("#Error",spreadsheet.evaluate("A1"))
+        spreadsheet.set("B2","=A1")
+        self.assertEqual("#Circular",spreadsheet.evaluate("A1"))
 
