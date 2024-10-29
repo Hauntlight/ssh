@@ -15,6 +15,8 @@ class SpreadSheet:
         value = self.get(cell)
         if value.isdigit():
             return int(value)
+        elif value.startswith("'") and value.endswith("'"):
+            return value[1:-1]
         else:
             try:
                 float(value)  # Check if it can be a valid float
