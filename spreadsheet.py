@@ -17,8 +17,13 @@ class SpreadSheet:
             return int(value)
         elif value.startswith("'") and value.endswith("'"):
             return value[1:-1]
-        elif value.startswith("='") and value.endswith("'"):
-            return value[2:-1]
+        elif value.startswith("="):
+            if value[1:].isdigit():
+                return int(value[1:])
+            elif value.startswith("='") and value.endswith("'"):
+                return value[2:-1]
+            else:
+                return "#Error"
         else:
             try:
                 float(value)  # Check if it can be a valid float
