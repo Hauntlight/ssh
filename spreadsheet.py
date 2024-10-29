@@ -22,5 +22,5 @@ class SpreadSheet:
                 float(value)  # Check if it can be a valid float
                 return "#Error"
             except ValueError:
-                return value
+                return "#Error"
 
